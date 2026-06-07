@@ -6,7 +6,7 @@ A personal learning series built around understanding the mathematical and compu
 
 ## Philosophy
 
-Most ML practitioners start with libraries like `scikit-learn`, `PyTorch`, or `TensorFlow` — and for good reason.  They are powerful tools that abstract away a lot of complexity.  But that abstraction also has a cost: it becomes easy to use a model without understanding what's happening beneath it.  
+Most ML practitioners start with libraries like `scikit-learn`, `PyTorch`, or `TensorFlow` — and for good reason.  They are powerful tools that abstract away a lot of complexity.  But that abstraction also has a cost: it becomes easy to use a model without understanding what's happening beneath it.
 
 This series takes the opposite approach first.  By implementing core operations from scratch, the goal is to build up an honest mental model of ML mechanics — one that pays off as the work advances into deeper and more complex territory.  Libraries are introduced selectively, and only after the underlying concept has been worked out manually.
 
@@ -46,13 +46,27 @@ The second half brings everything together into a **linear model**: $\hat{y} = X
 
 ---
 
+### 03 — Linear Systems and Least Squares
+
+**File:** `03_linear_systems_and_least_squares.ipynb`
+
+Building on the matrix primitives from Notebook 02, this notebook confronts a fundamental limitation of the linear model: in real data, there is usually no weight vector $w$ that satisfies all equations exactly.  The solution is **least squares** — rather than solving $Xw = y$ directly, we find the $w$ that minimizes the total squared error $\|Xw - y\|^2$.
+
+The notebook derives the **normal equation** $X^\top Xw = X^\top y$ from first principles, showing that minimizing the least squares loss reduces to solving a square linear system.  To solve that system, **Gaussian elimination** and **back substitution** are implemented from scratch — a triple-nested loop that systematically eliminates unknowns until the solution becomes readable from the bottom up.
+
+These tools are then wrapped into a `fit_normal_equation` function and applied to the same running race dataset from Notebook 02, now extended with a bias column.  The learned weights are interpreted, predictions are generated, residuals are inspected, and mean squared error is computed — closing the loop from raw data to a fitted model.
+
+**Key concepts:** least squares, normal equation, overdetermined systems, Gaussian elimination, back substitution, bias column, residuals, mean squared error
+
+---
+
 ## What's Coming
 
 This series is actively expanding.  Future notebooks will continue in the same spirit — building from scratch, introducing libraries as comparisons, and maintaining a focus on genuine understanding over shortcut fluency.  Topics currently planned or in progress include:
 
-- **Linear Regression** — a deeper dive into fitting a model to data, including concepts like Gaussian elimination and least squares
-- **Loss Functions and Optimization** — understanding how a model learns by minimizing error
-- **Gradient Descent** — the mechanism behind model training, implemented step by step
+- **Gradient Descent (scalar)** — deriving and implementing the update rule for 1-feature linear regression by hand
+- **Gradient Descent (matrix)** — generalizing to multiple features using matrix gradients
+- **Logistic Regression** — extending the linear model to binary classification with a sigmoid nonlinearity
 - **More to follow** as the series develops
 
 ---
